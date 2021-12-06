@@ -19,9 +19,8 @@ namespace LinkedListGeneric
                 firstNode = new Node<T>();
                 Node<T> newNode = firstNode;
                 newNode.Item = list[0];
-                newNode.Id = count;
                 count++;
-                Console.WriteLine($"Node #{newNode.Id} created");
+                Console.WriteLine($"Node created");
 
 
                 for (int i = 1; i < list.Count; i++)
@@ -29,8 +28,7 @@ namespace LinkedListGeneric
                     newNode.ChildNode = new Node<T>();
                     newNode = newNode.ChildNode;
                     newNode.Item = list[i];
-                    newNode.Id = count;
-                    Console.WriteLine($"Node #{newNode.Id} created");
+                    Console.WriteLine($"Node created");
                     count++;
                 }
             }
@@ -43,17 +41,15 @@ namespace LinkedListGeneric
                 firstNode = new Node<T>();
                 Node<T> newNode = firstNode;
                 newNode.Item = default(T);
-                newNode.Id = count;
                 count++;
-                Console.WriteLine($"Node #{newNode.Id} created");
+                Console.WriteLine($"Node created");
 
                 for (int i = 1; i < number; i++)
                 {
                     newNode.ChildNode = new Node<T>();
                     newNode = newNode.ChildNode;
                     newNode.Item = default(T);
-                    newNode.Id = count;
-                    Console.WriteLine($"Empty node #{newNode.Id} created");
+                    Console.WriteLine($"Empty node created");
                     this.count++;
                     
                 }
@@ -82,7 +78,6 @@ namespace LinkedListGeneric
         {
             Node<T> newNode = new Node<T>
             {
-                Id = count,
                 Item = item
             };
             if (firstNode == null)
@@ -95,13 +90,12 @@ namespace LinkedListGeneric
                 lastNode.ChildNode = newNode;
                 count++;
             }
-            Console.WriteLine($"Node #{newNode.Id} added to the end");
+            Console.WriteLine($"Node added to the end");
         }
         public void Push(T item)
         {
             Node<T> newNode = new Node<T>
             {
-                Id = count,
                 Item = item
             };
 
@@ -117,7 +111,7 @@ namespace LinkedListGeneric
                 count++;
 
             }
-            Console.WriteLine($"Node #{newNode.Id} added to the beginning");
+            Console.WriteLine($"Node added to the beginning");
         }
 
         public void RemoveAll()
@@ -201,7 +195,6 @@ namespace LinkedListGeneric
 
     internal class Node<T> : IDisposable
     {
-        public int Id { get; set; }
         public T Item { get; set; }
         public Node<T> ChildNode { get; set; }
 
