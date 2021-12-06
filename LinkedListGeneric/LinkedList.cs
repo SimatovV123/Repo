@@ -74,7 +74,7 @@ namespace LinkedListGeneric
         {
             get
             {
-                return NodeCrawler(index).Item;
+                return GetNode(index).Item;
             }
         }
 
@@ -91,8 +91,9 @@ namespace LinkedListGeneric
             }
             else
             {
-                Node<T> lastNode = NodeCrawler();
+                Node<T> lastNode = GetNode();
                 lastNode.ChildNode = newNode;
+                count++;
             }
             Console.WriteLine($"Node #{newNode.Id} added to the end");
         }
@@ -100,7 +101,7 @@ namespace LinkedListGeneric
         {
             Node<T> newNode = new Node<T>
             {
-                Id = count + 1,
+                Id = count,
                 Item = item
             };
 
@@ -113,27 +114,10 @@ namespace LinkedListGeneric
                 Node<T> secondNode = firstNode;
                 firstNode = newNode;
                 firstNode.ChildNode = secondNode;
+                count++;
+
             }
             Console.WriteLine($"Node #{newNode.Id} added to the beginning");
-        }
-        private Node<T> NodeCrawler(int index)
-        {
-
-            Node<T> currentNode = firstNode;
-            for (int i = 1; i < index; i++)
-            {
-                currentNode = currentNode.ChildNode;
-            }
-            return currentNode;
-        }
-        private Node<T> NodeCrawler()
-        {
-            Node<T> currentNode = firstNode;
-            for(int i = 1; i < count; i++)
-            {
-                currentNode = currentNode.ChildNode;
-            }
-            return currentNode;
         }
 
         public void RemoveAll()
@@ -146,11 +130,60 @@ namespace LinkedListGeneric
 
         public void AddRange(List<T> list)
         {
+            LinkedList<T> subList = new LinkedList<T>(list);
+
+            if(firstNode == null)
+            {
+                firstNode = subList.firstNode;
+            }
+            else
+            {
+                Node<T> lastNode = GetNode();
+                lastNode.ChildNode = subList.firstNode;
+            }
+            count += subList.Count;
+            Console.WriteLine($"{subList.Count} elements added to the end");
         }
+
         public void PushRange(List<T> list)
         {
+            LinkedList<T> subList = new LinkedList<T>(list);
 
+            if (firstNode == null)
+            {
+                firstNode = subList.firstNode;
+            }
+            else
+            {
+                Node<T> childNode = firstNode;
+
+                firstNode = subList.firstNode;
+
+                subList.GetNode().ChildNode = childNode;
+            }
+            count += subList.Count;
+            Console.WriteLine($"{subList.Count} elements added to the beginning");
         }
+        private Node<T> GetNode(int index)
+        {
+            Node<T> currentNode = firstNode;
+            for (int i = 1; i <= index; i++)
+            {
+                currentNode = currentNode.ChildNode;
+            }
+            return currentNode;
+        }
+
+        private Node<T> GetNode()
+        {
+            Node<T> currentNode = firstNode;
+            for (int i = 1; i < count; i++)
+            {
+                currentNode = currentNode.ChildNode;
+            }
+            return currentNode;
+        }
+
         private void NodeDisposer(Node<T> parentNode)
         {
             Node<T> childNode = parentNode.ChildNode;
@@ -165,6 +198,7 @@ namespace LinkedListGeneric
             NodeDisposer(childNode);
         }
     }
+
     internal class Node<T> : IDisposable
     {
         public int Id { get; set; }
@@ -173,7 +207,6 @@ namespace LinkedListGeneric
 
         public void Dispose()
         {
-            Console.WriteLine($"Node #{this.Id} disposed");
         }
     }
 }

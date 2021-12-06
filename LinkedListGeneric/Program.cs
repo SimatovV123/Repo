@@ -9,20 +9,38 @@ namespace LinkedListGeneric
         static void Main(string[] args)
         {
             List<Person> list = new List<Person>();
-            list.Add(new Person { FirstName = "wqwqw"});
-            list.Add(new Person { FirstName = "weqwe"});
-            list.Add(new Person { FirstName = "vdvds"});
-            list.Add(new Person { FirstName = "saada"});
-            list.Add(new Person { FirstName = "dsdsd"});
-
+            list.Add(new Person { FirstName = "qqqqq"});
+            list.Add(new Person { FirstName = "wwwww"});
+            list.Add(new Person { FirstName = "eeeee"});
+            list.Add(new Person { FirstName = "rrrrr"});
+            list.Add(new Person { FirstName = "ttttt"});
             LinkedList<Person> linkedList = new LinkedList<Person>(list);
             Console.WriteLine("--------------------------------------------------");
 
-            foreach(Person item in linkedList)
+
+            linkedList.Add(new Person { FirstName = "aaaaa" });
+            linkedList.Push(new Person { FirstName = "sssss" });
+            Console.WriteLine("--------------------------------------------------");
+
+
+            List<Person> subList = new List<Person>();
+            subList.Add(new Person { FirstName = "ttttt" });
+            subList.Add(new Person { FirstName = "yyyyy" });
+            subList.Add(new Person { FirstName = "uuuuu" });
+            subList.Add(new Person { FirstName = "iiiii" });
+            subList.Add(new Person { FirstName = "ooooo" });
+
+            linkedList.AddRange(subList);
+            linkedList.PushRange(subList);
+            Console.WriteLine("--------------------------------------------------");
+
+
+            foreach (Person item in linkedList)
             {
                 Console.WriteLine($"Iterating with foreach: {item.FirstName}");
             }
             Console.WriteLine("--------------------------------------------------");
+
 
             for (int i = 0; i < linkedList.Count; i++)
             {
@@ -30,10 +48,6 @@ namespace LinkedListGeneric
             }
             Console.WriteLine("--------------------------------------------------");
 
-            linkedList.Add(new Person { FirstName = "qwwqq" });
-            linkedList.Push(new Person { FirstName = "dssdd" });
-
-            Console.WriteLine("--------------------------------------------------");
 
             linkedList.RemoveAll();
 
