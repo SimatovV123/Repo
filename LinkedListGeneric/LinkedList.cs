@@ -13,6 +13,7 @@ namespace LinkedListGeneric
         }
 
         public LinkedList() { }
+
         public LinkedList(List<T> list)
         {
             if (list != null)
@@ -293,6 +294,7 @@ namespace LinkedListGeneric
 
         public void Dispose()
         {
+            Console.WriteLine("Node disposed");
         }
     }
 }

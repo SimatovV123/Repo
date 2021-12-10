@@ -32,7 +32,7 @@ namespace LinkedListGeneric
 
             //linkedList.AddRange(subList);
             //linkedList.PushRange(subList);
-            linkedList.InsertRange(subList,3);
+            //linkedList.InsertRange(subList,3);
             Console.WriteLine("--------------------------------------------------");
 
 
