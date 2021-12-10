@@ -6,7 +6,7 @@ namespace LinkedListGeneric
     public class LinkedList<T>
     {
         private Node<T> firstNode;
-        private int count = 0;
+        private int count;
         public int Count
         {
             get { return count; }
@@ -70,10 +70,16 @@ namespace LinkedListGeneric
         {
             get
             {
+                if(index >= count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
                 return GetNode(index).Item;
             }
         }
-
+        /// <summary>
+        /// Вставляет элемент в конец списка
+        /// </summary>
         public void Add(T item)
         {
             Node<T> newNode = new Node<T>
@@ -92,6 +98,9 @@ namespace LinkedListGeneric
             }
             Console.WriteLine($"Node added to the end");
         }
+        /// <summary>
+        /// Вставляет элемент в начало списка
+        /// </summary>
         public void Push(T item)
         {
             Node<T> newNode = new Node<T>
@@ -113,20 +122,78 @@ namespace LinkedListGeneric
             }
             Console.WriteLine($"Node added to the beginning");
         }
-
-        public void RemoveAll()
+        /// <summary>
+        /// Вставляет элемент в список на определенную позицию
+        /// </summary>
+        public void Insert(T item, int index)
         {
-            if(firstNode != null)
+            if(index == 0)
             {
-                NodeDisposer(firstNode);
+                Push(item);
+                return;
             }
+            else if(index == count)
+            {
+                Add(item);
+                return;
+            }
+            else if(index < 0 || index > count)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Node<T> parentNode = GetNode(index - 1);
+            Node<T> childNode = parentNode.ChildNode;
+
+            Node<T> newNode = new Node<T>
+            {
+                Item = item,
+                ChildNode = childNode
+            };
+
+            parentNode.ChildNode = newNode;
+            count++;
         }
 
+        /// <summary>
+        /// Вставляет список элементов, начиная с определённой позиции
+        /// </summary>
+        public void InsertRange(List<T> list, int index)
+        {
+            if (index == 0)
+            {
+                PushRange(list);
+                return;
+            }
+            else if (index == count)
+            {
+                AddRange(list);
+                return;
+            }
+            else if (index < 0 || index > count)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Node<T> parentNode = GetNode(index - 1);
+            Node<T> childNode = parentNode.ChildNode;
+
+            LinkedList<T> subList = new LinkedList<T>(list);
+
+            parentNode.ChildNode = subList.firstNode;
+            subList.GetNode().ChildNode = childNode;
+            count += subList.count;
+            subList.RemoveAll();
+
+        }
+        /// <summary>
+        /// Вставляет последовательность элементов в конец списка
+        /// </summary>
         public void AddRange(List<T> list)
         {
             LinkedList<T> subList = new LinkedList<T>(list);
 
-            if(firstNode == null)
+            if (firstNode == null)
             {
                 firstNode = subList.firstNode;
             }
@@ -138,7 +205,9 @@ namespace LinkedListGeneric
             count += subList.Count;
             Console.WriteLine($"{subList.Count} elements added to the end");
         }
-
+        /// <summary>
+        /// Вставляет последовательность элементов в конец списка
+        /// </summary>
         public void PushRange(List<T> list)
         {
             LinkedList<T> subList = new LinkedList<T>(list);
@@ -158,6 +227,15 @@ namespace LinkedListGeneric
             count += subList.Count;
             Console.WriteLine($"{subList.Count} elements added to the beginning");
         }
+
+        public void RemoveAll()
+        {
+            if(firstNode != null)
+            {
+                NodeDisposer(firstNode);
+            }
+        }
+
         private Node<T> GetNode(int index)
         {
             Node<T> currentNode = firstNode;

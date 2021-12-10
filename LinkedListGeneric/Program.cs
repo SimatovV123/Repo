@@ -18,8 +18,8 @@ namespace LinkedListGeneric
             Console.WriteLine("--------------------------------------------------");
 
 
-            linkedList.Add(new Person { FirstName = "aaaaa" });
-            linkedList.Push(new Person { FirstName = "sssss" });
+            //linkedList.Add(new Person { FirstName = "aaaaa" });
+            //linkedList.Push(new Person { FirstName = "sssss" });
             Console.WriteLine("--------------------------------------------------");
 
 
@@ -30,9 +30,11 @@ namespace LinkedListGeneric
             subList.Add(new Person { FirstName = "iiiii" });
             subList.Add(new Person { FirstName = "ooooo" });
 
-            linkedList.AddRange(subList);
-            linkedList.PushRange(subList);
+            //linkedList.AddRange(subList);
+            //linkedList.PushRange(subList);
+            linkedList.InsertRange(subList,3);
             Console.WriteLine("--------------------------------------------------");
+
 
 
             foreach (Person item in linkedList)
