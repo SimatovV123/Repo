@@ -22,15 +22,12 @@ namespace LinkedListGeneric
                 Node<T> newNode = firstNode;
                 newNode.Item = list[0];
                 count++;
-                Console.WriteLine($"Node created");
-
 
                 for (int i = 1; i < list.Count; i++)
                 {
                     newNode.ChildNode = new Node<T>();
                     newNode = newNode.ChildNode;
                     newNode.Item = list[i];
-                    Console.WriteLine($"Node created");
                     count++;
                 }
             }
@@ -44,8 +41,6 @@ namespace LinkedListGeneric
                 Node<T> newNode = firstNode;
                 newNode.Item = default(T);
 
-                Console.WriteLine($"Empty node created");
-
                 count++;
 
                 for (int i = 1; i < number; i++)
@@ -53,8 +48,6 @@ namespace LinkedListGeneric
                     newNode.ChildNode = new Node<T>();
                     newNode = newNode.ChildNode;
                     newNode.Item = default(T);
-
-                    Console.WriteLine($"Empty node created");
 
                     count++;
                     
@@ -105,8 +98,6 @@ namespace LinkedListGeneric
                 lastNode.ChildNode = newNode;
                 count++;
             }
-
-            Console.WriteLine($"Node added to the end");
         }
         /// <summary>
         /// Вставляет элемент в начало списка
@@ -130,8 +121,6 @@ namespace LinkedListGeneric
                 count++;
 
             }
-
-            Console.WriteLine($"Node added to the beginning");
         }
         /// <summary>
         /// Вставляет элемент в список на определенную позицию
@@ -213,7 +202,6 @@ namespace LinkedListGeneric
                 lastNode.ChildNode = subList.firstNode;
             }
             count += subList.Count;
-            Console.WriteLine($"{subList.Count} elements added to the end");
         }
         /// <summary>
         /// Вставляет последовательность элементов в конец списка
@@ -236,8 +224,6 @@ namespace LinkedListGeneric
             }
 
             count += subList.Count;
-
-            Console.WriteLine($"{subList.Count} elements added to the beginning");
         }
 
         public void RemoveAll()
@@ -294,7 +280,6 @@ namespace LinkedListGeneric
 
         public void Dispose()
         {
-            Console.WriteLine("Node disposed");
         }
     }
 }
