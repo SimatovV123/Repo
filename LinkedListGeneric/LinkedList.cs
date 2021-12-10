@@ -11,6 +11,7 @@ namespace LinkedListGeneric
         {
             get { return count; }
         }
+
         public LinkedList() { }
         public LinkedList(List<T> list)
         {
@@ -41,16 +42,20 @@ namespace LinkedListGeneric
                 firstNode = new Node<T>();
                 Node<T> newNode = firstNode;
                 newNode.Item = default(T);
+
+                Console.WriteLine($"Empty node created");
+
                 count++;
-                Console.WriteLine($"Node created");
 
                 for (int i = 1; i < number; i++)
                 {
                     newNode.ChildNode = new Node<T>();
                     newNode = newNode.ChildNode;
                     newNode.Item = default(T);
+
                     Console.WriteLine($"Empty node created");
-                    this.count++;
+
+                    count++;
                     
                 }
             }
@@ -59,6 +64,7 @@ namespace LinkedListGeneric
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> currentNode = firstNode;
+
             for (int i = 0; i < count; i++)
             {
                 yield return currentNode.Item;
@@ -74,6 +80,7 @@ namespace LinkedListGeneric
                 {
                     throw new IndexOutOfRangeException();
                 }
+
                 return GetNode(index).Item;
             }
         }
@@ -86,6 +93,7 @@ namespace LinkedListGeneric
             {
                 Item = item
             };
+
             if (firstNode == null)
             {
                 firstNode = newNode;
@@ -96,6 +104,7 @@ namespace LinkedListGeneric
                 lastNode.ChildNode = newNode;
                 count++;
             }
+
             Console.WriteLine($"Node added to the end");
         }
         /// <summary>
@@ -120,6 +129,7 @@ namespace LinkedListGeneric
                 count++;
 
             }
+
             Console.WriteLine($"Node added to the beginning");
         }
         /// <summary>
@@ -183,7 +193,6 @@ namespace LinkedListGeneric
             parentNode.ChildNode = subList.firstNode;
             subList.GetNode().ChildNode = childNode;
             count += subList.count;
-            subList.RemoveAll();
 
         }
         /// <summary>
@@ -224,7 +233,9 @@ namespace LinkedListGeneric
 
                 subList.GetNode().ChildNode = childNode;
             }
+
             count += subList.Count;
+
             Console.WriteLine($"{subList.Count} elements added to the beginning");
         }
 
@@ -239,20 +250,24 @@ namespace LinkedListGeneric
         private Node<T> GetNode(int index)
         {
             Node<T> currentNode = firstNode;
+
             for (int i = 1; i <= index; i++)
             {
                 currentNode = currentNode.ChildNode;
             }
+
             return currentNode;
         }
 
         private Node<T> GetNode()
         {
             Node<T> currentNode = firstNode;
+
             for (int i = 1; i < count; i++)
             {
                 currentNode = currentNode.ChildNode;
             }
+
             return currentNode;
         }
 
